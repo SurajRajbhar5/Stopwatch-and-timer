@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins&display=swap");
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Verdana;
+            background-color: #040218;
+        }
+
+        .icon {
+            padding-top: 10px;
+            right: 0%;
+            padding-right:900px;
+        }
+
+        .logo {
+            padding: 16px 0px 0px 0px;
+            width: 300px;
+            float: left;
+            color: white;
+            text-decoration: none;
+            font-size: 30px;
+            padding-left: 50px;
+        }
+
+
+        .logo span {
+            color: #220abe;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .heading {
+            color: blue;
+            align-items: center;
+            padding-left: 100px;
+            font-size: 40px;
+        }
+
+        #display {
+            width: auto;
+            color: blue;
+            margin-top: 30px;
+            font-size: 60px;
+            font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+            padding-left: 90px;
+        }
+
+        input {
+            margin-top: 20px;
+            width: 220px;
+            padding: 10px;
+            font-size: 20px;
+
+        }
+
+        .inputbox {
+            padding-left: 60px;
+        }
+
+        #start {
+            background-color: #ffffff;
+            color: #141313;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 60px;
+            height: 30px;
+            align-items: center;
+            margin-left: 135px;
+        }
+
+        @media only screen and (max-width: 550px) {
+            #display {
+                font-size: 60px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body style="background-color: #040218;">
+    <div class="main">
+        <div class="navbar">
+            <div class="navbar">
+                <div class="icon">
+                    <a href="#" class="logo">Time<span>Code</span></a>
+                </div>
+                <ul>
+                    <li><a href="index.html">StopWatch</a></li>
+                    <li><a href="timer.html">Timer</a></li>
+                </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="img-logo"><img src="1.gif" height="450px" width="600px" margin-left="10px"></div>
+    <div class="container">
+        <div class="box">
+            <h1 class="heading">Timer</h1>
+            <div class="inputbox" oninput="displaymin()">
+                <input type="number" id="minutes" min="0" max="59" placeholder="mins" /> :
+                <input type="number" id="seconds" min="0" max="59" placeholder="secs" />
+            </div>
+            <div id="display">00:00</div>
+            <div>
+                <button id="start" onclick="watch()">Start</button>
+            </div>
+        </div>
+        <div class="img-icon">
+            <div class="img-logo"><img src="1.gif" height="500px" width="700px" margin-left="0px"></div>
+        </div>
+    </div>
+
+    <script src="https://bit.ly/codedamn-web-console"></script>
+    <script>
+        let mins = document.getElementById("minutes");
+        let secs = document.getElementById("seconds");
+        let display = document.getElementById("display");
+        let start = document.getElementById("start");
+        let timer;
+
+        function displaymin() {
+            display.innerHTML =
+                (minutes.value > 9 ? minutes.value : "0" + minutes.value) +
+                ":" +
+                (seconds.value > 9 ? seconds.value : "0" + seconds.value);
+        }
+
+        function watch() {
+            start.disabled = true;
+            mins.disabled = true;
+            secs.disabled = true;
+            var date1 = new Date();
+            var countDownDate = new Date();
+            countDownDate.setTime(
+                date1.getTime() +
+                minutes.value * 60 * 1000 +
+                seconds.value * 1000 +
+                1 * 1000
+            );
+
+            var x = setInterval(function () {
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                display.innerHTML =
+                    (minutes > 9 ? minutes : "0" + minutes) +
+                    ":" +
+                    (seconds > 9 ? seconds : "0" + seconds);
+
+                var audio = new Audio("Timer.mp3");
+
+                if (display.innerHTML == "00:00") {
+                    clearInterval(x);
+                    audio.play();
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>
